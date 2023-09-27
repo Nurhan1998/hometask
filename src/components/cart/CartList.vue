@@ -36,6 +36,7 @@ const onDeleteItem = (item) => {
 }
 
 const onEditItem = (item, newName) => {
+  // todo: при обновлении новый элемент становиться обычным объектом(
   const updatedList = props.modelValue.map(elem => elem.id === item.id ? {...elem, name: newName } : elem);
   emit("update:modelValue", updatedList);
 }
