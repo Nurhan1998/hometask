@@ -1,19 +1,38 @@
 <script setup>
+import {computed} from "vue";
+
+const props = defineProps({
+  type: {
+    default: 'text',
+    type: String
+  },
+  label: String,
+  modelValue: [String, Number]
+})
+
+const emit = defineEmits(['update:modelValue'])
+
+const value = computed({
+  get: () => props.modelValue,
+  set: val => emit('update:modelValue', val)
+})
 
 </script>
 
 <template>
   <div class="input-block">
     <label
+        v-if="label"
         class="input-block__label"
         for="some_input_id"
     >
-      Label
+      {{ label }}
     </label>
     <input
         id="some_input_id"
+        v-model="value"
         class="input-block__input"
-        type="text"
+        :type="type"
     >
   </div>
 
@@ -29,6 +48,7 @@
 
   &__label {
     display: block;
+    color: black;
   }
 
   &__input {

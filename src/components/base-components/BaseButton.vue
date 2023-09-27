@@ -1,10 +1,13 @@
 <script setup>
+defineProps({
+  content: String,
+})
 
 </script>
 
 <template>
   <button class="button">
-
+    {{ content }}
   </button>
 
 </template>

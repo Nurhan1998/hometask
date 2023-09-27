@@ -1,4 +1,18 @@
 <script setup>
+import {computed} from "vue";
+
+const props = defineProps({
+  options: Array,
+  label: String,
+  modelValue: Object
+});
+
+const emit = defineEmits(['update:modelValue']);
+
+const value = computed({
+  get: () => props.modelValue,
+  set: val => emit('update:modelValue', val)
+});
 
 </script>
 
@@ -8,17 +22,20 @@
         for="some_select_id"
         class="select-block__label"
     >
-      Label
+      {{ label }}
     </label>
     <select
         id="some_select_id"
+        v-model="value"
         class="select-block__select"
     >
       <option
+          v-for="option in options"
+          :key="option.id"
+          :value="option"
           class="select-block__option"
-          value=""
       >
-        Option
+        {{ option.name }}
       </option>
     </select>
   </div>
@@ -30,6 +47,7 @@
 
   &__label {
     display: block;
+    color: black;
   }
 
   &__select {
